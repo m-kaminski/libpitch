@@ -5,9 +5,9 @@
 #include <string>
 #include <cassert>
 
-namespace pitchstream
+namespace pitch
 {
-    namespace
+    namespace types
     {
         class base36_test : public ::testing::Test
         {

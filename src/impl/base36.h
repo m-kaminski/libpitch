@@ -2,8 +2,7 @@
 #define _BASE36_H
 #include <cstdint>
 #include <stdexcept>
-namespace pitchstream
-{
+namespace pitch::types {
     static const std::uint64_t base36_max = 4738381338321616895LL;
 
     /***
