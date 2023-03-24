@@ -27,6 +27,12 @@ namespace pitch::types {
         return result;
     };
 
+    template <int base, typename T>
+    std::uint64_t read_base(T s)
+    {
+        return read_base<base>(s.begin(), s.end());
+    }
+
     /***
      * Convert a range of characters into base36 number. Accepts 0-9 and A-Z as digits
      * type is a forward iterator to a char
