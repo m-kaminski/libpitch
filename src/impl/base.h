@@ -11,13 +11,21 @@ namespace pitch::types {
         std::uint64_t result = 0;
         while (begin != end)
         {
+            static_assert(base <= 36 && base >=2, "base 2-36 handled");
             int d;
-            if (*begin >= '0' && *begin <= '9')
-                d = *begin - '0';
-            else if (*begin >= 'A' && *begin <= 'Z')
-                d = *begin - 'A' + 10;
-            else
-                throw std::invalid_argument("Not a base36 digit");
+            if constexpr (base > 10) {
+                if (*begin >= '0' && *begin <= '9')
+                    d = *begin - '0';
+                else if (*begin >= 'A' && *begin < 'A' + base - 10)
+                    d = *begin - 'A' + 10;
+                else
+                    throw std::invalid_argument("Not a base" + std::to_string(base) +" digit");
+            } else {
+                if (*begin >= '0' && *begin < '0' + base)
+                    d = *begin - '0';
+                else
+                    throw std::invalid_argument("Not a base" + std::to_string(base) +" digit");
+            }
             result *= base;
             result += d;
 
