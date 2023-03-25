@@ -5,9 +5,9 @@
 #include <functional>
 #include <algorithm>
 namespace pitch::types {
-    
+
     template <typename T1, typename T2>
-    void copy_padded_string(T1 begin, const T1 &end, T2 out_begin)
+    T2 copy_padded_string(T1 begin, const T1 &end, T2 out_begin)
     {
         while (begin != end) {
             if (*begin == ' ') {
@@ -20,6 +20,7 @@ namespace pitch::types {
         if (!std::all_of(begin, end, std::bind(std::equal_to<char>(), ' ', std::placeholders::_1))) {
             throw std::invalid_argument("Invalid space padded string");
         }
+        return out_begin;
     };
 
     template <typename T>

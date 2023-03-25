@@ -36,19 +36,29 @@ namespace pitch
             EXPECT_STREQ("QQQX", to.c_str());
         }
 
+        TEST_F(padded_string_test, check_output_iterator)
+        {
+            std::string from("  GM    ");
+            std::string to("123456");
+            auto it = copy_padded_string(from.begin()+2, from.end(), to.begin()+1);
+            EXPECT_STREQ("1GM456", to.c_str());
+            EXPECT_EQ(it, to.begin()+3);
+            EXPECT_EQ(*it, '4');
+        }
+
         TEST_F(padded_string_test, string_extract_middle)
         {
-            std::string from("  QQQ    ");
+            std::string from("  AAPL    ");
             std::string to("XY");
             copy_padded_string(from.begin()+2, from.end(), inserter(to, to.begin()+1));
-            EXPECT_STREQ("XQQQY", to.c_str());
+            EXPECT_STREQ("XAAPLY", to.c_str());
         }
 
         TEST_F(padded_string_test, string_extract_get_string)
         {
-            std::string from("QQQ    ");
+            std::string from("SPY    ");
             std::string to(get_padded_string(from.begin(), from.end()));
-            EXPECT_STREQ("QQQ", to.c_str());
+            EXPECT_STREQ("SPY", to.c_str());
         }
 
         TEST_F(padded_string_test, string_invalid)
