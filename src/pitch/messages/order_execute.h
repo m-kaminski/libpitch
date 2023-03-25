@@ -9,6 +9,7 @@ namespace pitch::messages
     class order_executed : public message
     {
     public:
+        order_executed() : message(1) {}
         message_type get_type() { return message_type::order_executed; }
     };
 

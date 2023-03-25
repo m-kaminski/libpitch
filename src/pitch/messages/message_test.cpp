@@ -12,12 +12,6 @@ namespace pitch::messages
     {
     };
 
-    TEST_F(message_test, construct)
-    {
-        message m;
-        EXPECT_EQ(m.get_type(), message::unknown_message);
-    }
-
     TEST_F(message_test, construct_executed)
     {
         std::shared_ptr<message> m(new order_executed);

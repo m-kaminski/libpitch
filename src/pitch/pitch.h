@@ -17,8 +17,6 @@ namespace pitch
     class decoder
     {
     public:
-
-    
         /***
          * @param T2 input type of an iterator
          * @param begin begining of line to decode
@@ -33,17 +31,12 @@ namespace pitch
             // message type is always single character at offset 8
             switch (*(begin+8)) {
                 case 'E': return messages::decode_message_order_executed<T1,T2>(begin, end);
-                case 'A': return messages::decode_message_add_order_short<T1,T2>(begin, end);
-                case 'd': return messages::decode_message_add_order_long<T1,T2>(begin, end);
+                case 'A': return messages::_add_decoder<T1>::decode_message_add_order_short(begin, end);
+                case 'd': return messages::_add_decoder<T1>::decode_message_add_order_long(begin, end);
                 default: ;
             }
             return p_result;
         }
-
-
-
-
-
     };
 }
 
