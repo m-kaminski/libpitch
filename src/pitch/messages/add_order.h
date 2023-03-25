@@ -103,7 +103,7 @@ namespace pitch::messages
     template <typename T1>
     class _add_decoder
     {
-        static const off_t order_id_offset = 8;
+        static const off_t order_id_offset = 9;
         static const off_t order_id_length = 12;
         static const off_t side_offset = 21;
         static const off_t shares_offset = 22;
@@ -111,33 +111,39 @@ namespace pitch::messages
         static const off_t symbol_offset = 28;
         static const off_t symbol_length_s = 6;
         static const off_t symbol_length_l = 6;
-        static const off_t prics_offset_s = 34;
-        static const off_t prics_offset_l = 36;
-        static const off_t prics_length = 36;
-
+        static const off_t price_offset_s = 34;
+        static const off_t price_offset_l = 36;
+        static const off_t price_length = 10;
+        static const off_t length_s = 45;
+        static const off_t length_l = 52;
+        
     private:
         template <typename T2>
         static T1 decode_message_add_order_short(T2 begin, T2 end, uint64_t timestamp)
         {
-            T1 p_result;
+            if (end - begin != length_s)
+                throw std::invalid_argument("expected length of " + std::to_string(length_s));
 
             uint64_t order_id = pitch::types::read_base36(OFFSET_PAIR(order_id_offset, order_id_length));
-            types::side_type side;
-            uint64_t shares;
-            std::string symbol;
-            uint64_t price;
+            types::side_type side = pitch::types::get_side(begin+side_offset);
+            uint64_t shares = pitch::types::read_base<10>(OFFSET_PAIR(shares_offset, shares_length));
+            std::string symbol = pitch::types::get_padded_string(OFFSET_PAIR(symbol_offset, symbol_length_s));
+            uint64_t price = pitch::types::read_base<10>(OFFSET_PAIR(price_offset_s, price_length));
 
-            // p_result.reset(new add_order(timestamp));
-
-            return T1(new add_order(timestamp, 1, types::side_type::buy, 4, "AMD", 213700));
+            return T1(new add_order(timestamp, order_id, side, shares, symbol, price));
         }
 
         template <typename T2>
         static T1 decode_message_add_order_long(T2 begin, T2 end, uint64_t timestamp)
         {
-            T1 p_result;
+            if (end - begin != length_l)
+                throw std::invalid_argument("expected length of " + std::to_string(length_l));
 
-            // p_result.reset(new add_order(timestamp));
+            uint64_t order_id = pitch::types::read_base36(OFFSET_PAIR(order_id_offset, order_id_length));
+            types::side_type side = pitch::types::get_side(begin+side_offset);
+            uint64_t shares = pitch::types::read_base<10>(OFFSET_PAIR(shares_offset, shares_length));
+            std::string symbol = pitch::types::get_padded_string(OFFSET_PAIR(symbol_offset, symbol_length_l));
+            uint64_t price = pitch::types::read_base<10>(OFFSET_PAIR(price_offset_l, price_length));
 
             return T1(new add_order(timestamp, 1, types::side_type::buy, 4, "AMD", 213700));
         }
