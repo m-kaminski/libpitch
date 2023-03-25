@@ -1,5 +1,5 @@
-#ifndef _LIBPITCH_PITCH_H
-#define _LIBPITCH_PITCH_H
+#ifndef _LIBPITCH_PITCH_MESSAGES_H
+#define _LIBPITCH_PITCH_MESSAGES_H
 
 namespace pitch::messages {
     enum message_type {
@@ -27,7 +27,8 @@ namespace pitch::messages {
         auction_update = 10 
     };
     class message {
-
+        public:
+        virtual message_type get_type() { return message_type::unknown_message;}
     };
 }
 

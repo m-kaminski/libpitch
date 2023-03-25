@@ -5,6 +5,15 @@
 namespace pitch::types {
 
 
+
+    /***
+     * Convert a range of characters into base-N number. Accepts 0-9 and A-Z as digits
+     * type is a forward iterator to a char
+     * @param base template parameter for base to be used
+     * @param begin iterator to a begining of number to convert
+     * @param end iterator to an ending of number to convert
+     * @throw std::invalid_argument if incorrect digit
+     */
     template <int base, typename T>
     std::uint64_t read_base(T begin, const T &end)
     {
@@ -35,6 +44,11 @@ namespace pitch::types {
         return result;
     };
 
+    /***
+     * Convert a string-equivalent to base-N number
+     * @param s string-equivalent input, at most 12-characters long
+     * @throw std::invalid_argument if incorrect digit
+     */
     template <int base, typename T>
     std::uint64_t read_base(T s)
     {
@@ -46,7 +60,7 @@ namespace pitch::types {
      * type is a forward iterator to a char
      * @param begin iterator to a begining of number to convert
      * @param end iterator to an ending of number to convert
-     * @throw std::invalid_argument if more than 12 base36 digits or incorrect digit
+     * @throw std::invalid_argument if incorrect digit
      */
     template <typename T>
     std::uint64_t read_base36(T begin, const T &end) {
@@ -56,7 +70,7 @@ namespace pitch::types {
     /***
      * Convert a string-equivalent to base36 number
      * @param s string-equivalent input, at most 12-characters long
-     * @throw std::invalid_argument if more than 12 base36 digits or incorrect digit
+     * @throw std::invalid_argument if incorrect digit
      */
     template <typename T>
     std::uint64_t read_base36(T s)
