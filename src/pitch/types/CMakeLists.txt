@@ -12,3 +12,8 @@ add_executable(padded_string_test padded_string_test.cpp)
 target_compile_options(padded_string_test PRIVATE -g -O0 --coverage -fprofile-arcs -ftest-coverage)
 target_link_libraries(padded_string_test GTest::gtest_main gcov)
 gtest_discover_tests(padded_string_test)
+
+add_executable(side_test side_test.cpp)
+target_compile_options(side_test PRIVATE -g -O0 --coverage -fprofile-arcs -ftest-coverage)
+target_link_libraries(side_test GTest::gtest_main gcov)
+gtest_discover_tests(side_test)
