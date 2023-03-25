@@ -38,6 +38,12 @@ namespace pitch::messages
             auction_update = 10
         };
         virtual message_type get_type() { return message_type::unknown_message; }
+
+        uint64_t get_timestamp() {return timestamp;}
+        void set_timestamp(uint64_t _timestamp) {timestamp = _timestamp;}
+
+        private:
+        uint64_t timestamp;
     };
 
 

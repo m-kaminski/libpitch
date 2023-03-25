@@ -33,7 +33,8 @@ namespace pitch
             // message type is always single character at offset 8
             switch (*(begin+8)) {
                 case 'E': return messages::decode_message_order_executed<T1,T2>(begin, end);
-                case 'A': return messages::decode_message_add_order<T1,T2>(begin, end);
+                case 'A': return messages::decode_message_add_order_short<T1,T2>(begin, end);
+                case 'd': return messages::decode_message_add_order_long<T1,T2>(begin, end);
                 default: ;
             }
             return p_result;
