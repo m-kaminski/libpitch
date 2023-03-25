@@ -1,5 +1,5 @@
-#ifndef _LIBPITCH_IMPL_TYPES_PADDED_STRING_H
-#define _LIBPITCH_IMPL_TYPES_PADDED_STRING_H
+#ifndef _LIBPITCH_TYPES_PADDED_STRING_H
+#define _LIBPITCH_TYPES_PADDED_STRING_H
 #include <string>
 #include <stdexcept>
 #include <functional>
