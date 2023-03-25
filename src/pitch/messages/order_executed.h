@@ -2,6 +2,7 @@
 #define _LIBPITCH_PITCH_ORDER_EXECUTE_H
 
 #include "message.h"
+#include "common_macros.h"
 
 namespace pitch::messages
 {
@@ -53,7 +54,11 @@ namespace pitch::messages
      * https://cdn.cboe.com/resources/membership/Cboe_US_Equities_TCP_PITCH_Specification.pdf
      * As of: March 25, 2022 (page 9)
      */
-#define OFFSET_PAIR(O, L) (begin + O), (begin + O + L)
+
+    /**
+     * Class implementing builder pattern for order_executed. All methods and data fields are private
+     * as it is only meant to be called by friend pitch::decoder<T1>
+    */
     template <typename T1>
     class _order_executed_decoder
     {
@@ -72,15 +77,13 @@ namespace pitch::messages
                 throw std::invalid_argument("expected length of " + std::to_string(length)
                 + " for order executed message");
 
-            uint64_t order_id = pitch::types::get_base36(OFFSET_PAIR(order_id_offset, order_id_length));
-            uint64_t shares = pitch::types::get_base<10>(OFFSET_PAIR(shares_offset, shares_length));
-            uint64_t execution_id = pitch::types::get_base36(OFFSET_PAIR(execution_id_offset, execution_id_length));
+            uint64_t order_id = pitch::types::get_base36(_OFFSET_PAIR(order_id_offset, order_id_length));
+            uint64_t shares = pitch::types::get_base<10>(_OFFSET_PAIR(shares_offset, shares_length));
+            uint64_t execution_id = pitch::types::get_base36(_OFFSET_PAIR(execution_id_offset, execution_id_length));
 
             return T1(new order_executed(timestamp, order_id, shares, execution_id));
         }
     };
-#undef OFFSET_PAIR
-
 }
 
 #endif
