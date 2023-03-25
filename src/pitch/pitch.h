@@ -23,6 +23,8 @@ namespace pitch
          * @param begin begining of line to decode
          * @param end end of line to decode
          * @return smart pointer of given type to message being extracted
+         * @throw invalid_argument if line begin...end doesn't contain a valid PITCH format message.
+         *        e.what() will contain descriptive text helping to debug information
          */
         template <typename T2>
         static T1 decode_message(T2 begin, T2 end)
