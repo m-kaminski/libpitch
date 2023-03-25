@@ -46,7 +46,7 @@ namespace pitch
          */
         template <typename T2>
         static uint64_t parse_timestamp(T2 begin) {
-            return types::read_base<10>(begin, begin+8);
+            return types::get_base<10>(begin, begin+8);
         }
     };
 }

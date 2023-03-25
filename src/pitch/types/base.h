@@ -15,7 +15,7 @@ namespace pitch::types {
      * @throw std::invalid_argument if incorrect digit
      */
     template <int base, typename T>
-    std::uint64_t read_base(T begin, const T &end)
+    std::uint64_t get_base(T begin, const T &end)
     {
         std::uint64_t result = 0;
         while (begin != end)
@@ -50,9 +50,9 @@ namespace pitch::types {
      * @throw std::invalid_argument if incorrect digit
      */
     template <int base, typename T>
-    std::uint64_t read_base(T s)
+    std::uint64_t get_base(T s)
     {
-        return read_base<base>(s.begin(), s.end());
+        return get_base<base>(s.begin(), s.end());
     }
 
     /***
@@ -63,8 +63,8 @@ namespace pitch::types {
      * @throw std::invalid_argument if incorrect digit
      */
     template <typename T>
-    std::uint64_t read_base36(T begin, const T &end) {
-        return read_base<36>(begin, end);
+    std::uint64_t get_base36(T begin, const T &end) {
+        return get_base<36>(begin, end);
     }
 
     /***
@@ -73,9 +73,9 @@ namespace pitch::types {
      * @throw std::invalid_argument if incorrect digit
      */
     template <typename T>
-    std::uint64_t read_base36(T s)
+    std::uint64_t get_base36(T s)
     {
-        return read_base36(s.begin(), s.end());
+        return get_base36(s.begin(), s.end());
     }
 
 }

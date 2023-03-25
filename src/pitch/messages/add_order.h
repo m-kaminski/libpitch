@@ -125,11 +125,11 @@ namespace pitch::messages
                 throw std::invalid_argument("expected length of " + std::to_string(length_s)
                 + " for short format add order message");
 
-            uint64_t order_id = pitch::types::read_base36(OFFSET_PAIR(order_id_offset, order_id_length));
+            uint64_t order_id = pitch::types::get_base36(OFFSET_PAIR(order_id_offset, order_id_length));
             types::side_type side = pitch::types::get_side(begin+side_offset);
-            uint64_t shares = pitch::types::read_base<10>(OFFSET_PAIR(shares_offset, shares_length));
+            uint64_t shares = pitch::types::get_base<10>(OFFSET_PAIR(shares_offset, shares_length));
             std::string symbol = pitch::types::get_padded_string(OFFSET_PAIR(symbol_offset, symbol_length_s));
-            uint64_t price = pitch::types::read_base<10>(OFFSET_PAIR(price_offset_s, price_length));
+            uint64_t price = pitch::types::get_base<10>(OFFSET_PAIR(price_offset_s, price_length));
 
             return T1(new add_order(timestamp, order_id, side, shares, symbol, price));
         }
@@ -141,11 +141,11 @@ namespace pitch::messages
                 throw std::invalid_argument("expected length of " + std::to_string(length_l)
                 + " for long format add order message");
 
-            uint64_t order_id = pitch::types::read_base36(OFFSET_PAIR(order_id_offset, order_id_length));
+            uint64_t order_id = pitch::types::get_base36(OFFSET_PAIR(order_id_offset, order_id_length));
             types::side_type side = pitch::types::get_side(begin+side_offset);
-            uint64_t shares = pitch::types::read_base<10>(OFFSET_PAIR(shares_offset, shares_length));
+            uint64_t shares = pitch::types::get_base<10>(OFFSET_PAIR(shares_offset, shares_length));
             std::string symbol = pitch::types::get_padded_string(OFFSET_PAIR(symbol_offset, symbol_length_l));
-            uint64_t price = pitch::types::read_base<10>(OFFSET_PAIR(price_offset_l, price_length));
+            uint64_t price = pitch::types::get_base<10>(OFFSET_PAIR(price_offset_l, price_length));
 
             return T1(new add_order(timestamp, order_id, side, shares, symbol, price));
         }
