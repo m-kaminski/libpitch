@@ -110,7 +110,7 @@ namespace pitch::messages
         static const off_t shares_length = 6;
         static const off_t symbol_offset = 28;
         static const off_t symbol_length_s = 6;
-        static const off_t symbol_length_l = 6;
+        static const off_t symbol_length_l = 8;
         static const off_t price_offset_s = 34;
         static const off_t price_offset_l = 36;
         static const off_t price_length = 10;
@@ -122,7 +122,8 @@ namespace pitch::messages
         static T1 decode_message_add_order_short(T2 begin, T2 end, uint64_t timestamp)
         {
             if (end - begin != length_s)
-                throw std::invalid_argument("expected length of " + std::to_string(length_s));
+                throw std::invalid_argument("expected length of " + std::to_string(length_s)
+                + " for short format add order message");
 
             uint64_t order_id = pitch::types::read_base36(OFFSET_PAIR(order_id_offset, order_id_length));
             types::side_type side = pitch::types::get_side(begin+side_offset);
@@ -137,7 +138,8 @@ namespace pitch::messages
         static T1 decode_message_add_order_long(T2 begin, T2 end, uint64_t timestamp)
         {
             if (end - begin != length_l)
-                throw std::invalid_argument("expected length of " + std::to_string(length_l));
+                throw std::invalid_argument("expected length of " + std::to_string(length_l)
+                + " for long format add order message");
 
             uint64_t order_id = pitch::types::read_base36(OFFSET_PAIR(order_id_offset, order_id_length));
             types::side_type side = pitch::types::get_side(begin+side_offset);
@@ -145,7 +147,7 @@ namespace pitch::messages
             std::string symbol = pitch::types::get_padded_string(OFFSET_PAIR(symbol_offset, symbol_length_l));
             uint64_t price = pitch::types::read_base<10>(OFFSET_PAIR(price_offset_l, price_length));
 
-            return T1(new add_order(timestamp, 1, types::side_type::buy, 4, "AMD", 213700));
+            return T1(new add_order(timestamp, order_id, side, shares, symbol, price));
         }
 
         friend class pitch::decoder<T1>;
