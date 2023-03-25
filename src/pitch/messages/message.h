@@ -45,13 +45,6 @@ namespace pitch::messages
             auction_update = 8
         };
 
-        /// @brief enum to differentiate buy from sell orders
-        enum side_type
-        {
-            unknown_side,
-            sell,
-            buy
-        };
         virtual message_type get_type() { return message_type::unknown_message; }
         uint64_t get_timestamp() { return timestamp; }
         void set_timestamp(uint64_t _timestamp) { timestamp = _timestamp; }

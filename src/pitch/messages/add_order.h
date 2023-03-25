@@ -4,6 +4,7 @@
 #include <string>
 #include "message.h"
 #include "../types/base.h"
+#include "../types/side.h"
 #include "../types/padded_string.h"
 
 namespace pitch::messages
@@ -17,7 +18,7 @@ namespace pitch::messages
     public:
         add_order(uint64_t timestamp,
                   uint64_t _order_id,
-                  side_type _side,
+                  types::side_type _side,
                   uint64_t _shares,
                   std::string _symbol,
                   uint64_t _price) : message(timestamp),
@@ -40,7 +41,7 @@ namespace pitch::messages
 
         /**
          * buy or sell */
-        side_type get_side() { return side; }
+        types::side_type get_side() { return side; }
 
         /**
          * number of shares executed
@@ -59,7 +60,7 @@ namespace pitch::messages
 
     private:
         uint64_t order_id;
-        side_type side;
+        types::side_type side;
         uint64_t shares;
         std::string symbol;
         uint64_t price;
@@ -121,14 +122,14 @@ namespace pitch::messages
             T1 p_result;
 
             uint64_t order_id = pitch::types::read_base36(OFFSET_PAIR(order_id_offset, order_id_length));
-            message::side_type side;
+            types::side_type side;
             uint64_t shares;
             std::string symbol;
             uint64_t price;
 
             // p_result.reset(new add_order(timestamp));
 
-            return T1(new add_order(timestamp, 1, message::buy, 4, "AMD", 213700));
+            return T1(new add_order(timestamp, 1, types::side_type::buy, 4, "AMD", 213700));
         }
 
         template <typename T2>
@@ -138,7 +139,7 @@ namespace pitch::messages
 
             // p_result.reset(new add_order(timestamp));
 
-            return T1(new add_order(timestamp, 1, message::buy, 4, "AMD", 213700));
+            return T1(new add_order(timestamp, 1, types::side_type::buy, 4, "AMD", 213700));
         }
 
         friend class pitch::decoder<T1>;
