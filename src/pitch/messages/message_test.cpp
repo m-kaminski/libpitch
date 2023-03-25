@@ -14,7 +14,7 @@ namespace pitch::messages
 
     TEST_F(message_test, construct_executed)
     {
-        std::shared_ptr<message> m(new order_executed);
+        std::shared_ptr<message> m(new order_executed(1,4,5,3));
         EXPECT_EQ(m->get_type(), message::order_executed);
     }
 

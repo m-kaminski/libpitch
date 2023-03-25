@@ -97,7 +97,7 @@ namespace pitch::messages
      *
      * Source specification:
      * https://cdn.cboe.com/resources/membership/Cboe_US_Equities_TCP_PITCH_Specification.pdf
-     * As of: March 25, 2022
+     * As of: March 25, 2022 (pages 7-8)
      */
 #define OFFSET_PAIR(O, L) (begin + O), (begin + O + L)
     template <typename T1>
