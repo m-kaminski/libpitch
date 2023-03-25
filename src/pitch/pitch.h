@@ -32,31 +32,16 @@ namespace pitch
                 return p_result;
             // message type is always single character at offset 8
             switch (*(begin+8)) {
-                case 'E': return decode_message_order_executed(begin, end);
-                case 'A': return decode_message_add_order(begin, end);
+                case 'E': return messages::decode_message_order_executed<T1,T2>(begin, end);
+                case 'A': return messages::decode_message_add_order<T1,T2>(begin, end);
                 default: ;
             }
             return p_result;
         }
 
 
-        template <typename T2>
-        static T1 decode_message_order_executed(T2 begin, T2 end) {
-             T1 p_result;
 
-            p_result.reset(new pitch::messages::order_executed);
 
-            return p_result;
-        }
-
-        template <typename T2>
-        static T1 decode_message_add_order(T2 begin, T2 end) {
-             T1 p_result;
-
-            p_result.reset(new pitch::messages::add_order);
-
-            return p_result;  
-        }
 
     };
 }

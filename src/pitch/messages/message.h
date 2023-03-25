@@ -40,17 +40,9 @@ namespace pitch::messages
         virtual message_type get_type() { return message_type::unknown_message; }
     };
 
-    class add_order : public message
-    {
-    public:
-        message_type get_type() { return message_type::add_order; }
-    };
 
-    class order_executed : public message
-    {
-    public:
-        message_type get_type() { return message_type::order_executed; }
-    };
 }
+#include "add_order.h"
+#include "order_execute.h"
 
 #endif
