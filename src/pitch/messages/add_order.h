@@ -3,7 +3,8 @@
 #include <cstdint>
 #include <string>
 #include "message.h"
-
+#include "../types/base.h"
+#include "../types/padded_string.h"
 
 namespace pitch::messages
 {
@@ -14,19 +15,46 @@ namespace pitch::messages
     class add_order : public message
     {
     public:
-        enum side_type
+        add_order(uint64_t timestamp,
+                  uint64_t _order_id,
+                  side_type _side,
+                  uint64_t _shares,
+                  std::string _symbol,
+                  uint64_t _price) : message(timestamp),
+                                     order_id(_order_id),
+                                     side(_side),
+                                     shares(_shares),
+                                     symbol(_symbol),
+                                     price(_price)
+
         {
-            unknown_side,
-            sell,
-            buy
-        };
-        add_order(uint64_t timestamp) : message(timestamp) {}
+        }
+
+        // no setters, readonly properties once set
 
         message_type get_type() { return message_type::add_order; }
+
+        /**
+         * Get id of an order (this will be cross-referenced when canceling or executing )*/
         uint64_t get_order_id() { return order_id; }
+
+        /**
+         * buy or sell */
         side_type get_side() { return side; }
+
+        /**
+         * number of shares executed
+         */
         uint64_t get_shares() { return shares; }
-        std::string get_symbol() { return symbol; }
+
+        /**
+         * stock symbol
+         */
+        const std::string &get_symbol() { return symbol; }
+
+        /**
+         * price in 1/10000th of dollars (so 213700 equals to $21.37)
+         */
         uint64_t get_price() { return price; }
 
     private:
@@ -48,6 +76,7 @@ namespace pitch::messages
      *   stock_symbol   28        6         printable ascii     std::string
      *   price          34        10        price(decimal)      uint64_t
      *   display        44        1         Alpha ("Y"/"N")     N/A (ignore)
+     *   LF             45
      *
      *   ------------------ ADD ORDER: Extended (long) format -----------------
      *   FIELD          OFFSET    LENGTH    DATA TYPE (cboe)    DATA TYPE (C++)
@@ -61,24 +90,45 @@ namespace pitch::messages
      *   display        46        1         Alpha ("Y"/"N")     N/A (ignore)
      *   participant    47        4         Alpha               N/A (ignore)
      *   customer       51        1         Alphanumeric        N/A (ignore)
+     *   LF             52
+     *
+     * Up to stock symbol offsets are equal; symbol length differs, and offset differ for price
      *
      * Source specification:
      * https://cdn.cboe.com/resources/membership/Cboe_US_Equities_TCP_PITCH_Specification.pdf
      * As of: March 25, 2022
      */
-
+#define OFFSET_PAIR(O, L) (begin + O), (begin + O + L)
     template <typename T1>
     class _add_decoder
     {
+        static const off_t order_id_offset = 8;
+        static const off_t order_id_length = 12;
+        static const off_t side_offset = 21;
+        static const off_t shares_offset = 22;
+        static const off_t shares_length = 6;
+        static const off_t symbol_offset = 28;
+        static const off_t symbol_length_s = 6;
+        static const off_t symbol_length_l = 6;
+        static const off_t prics_offset_s = 34;
+        static const off_t prics_offset_l = 36;
+        static const off_t prics_length = 36;
+
     private:
         template <typename T2>
         static T1 decode_message_add_order_short(T2 begin, T2 end, uint64_t timestamp)
         {
             T1 p_result;
 
-            p_result.reset(new add_order(timestamp));
+            uint64_t order_id = pitch::types::read_base36(OFFSET_PAIR(order_id_offset, order_id_length));
+            message::side_type side;
+            uint64_t shares;
+            std::string symbol;
+            uint64_t price;
 
-            return p_result;
+            // p_result.reset(new add_order(timestamp));
+
+            return T1(new add_order(timestamp, 1, message::buy, 4, "AMD", 213700));
         }
 
         template <typename T2>
@@ -86,19 +136,14 @@ namespace pitch::messages
         {
             T1 p_result;
 
-            p_result.reset(new add_order(timestamp));
+            // p_result.reset(new add_order(timestamp));
 
-            return p_result;
-        }
-
-        // decode common fields that are at same offsets accross long and short versions
-        template <typename T2>
-        static void decode_message_add_order_common(T2 begin, T2 end, T1 m)
-        {
+            return T1(new add_order(timestamp, 1, message::buy, 4, "AMD", 213700));
         }
 
         friend class pitch::decoder<T1>;
     };
+#undef OFFSET_PAIR
 }
 
 #endif

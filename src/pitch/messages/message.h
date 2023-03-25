@@ -3,8 +3,9 @@
 
 // forward declaration needed to make decoder a friend;
 // making it a friend is necessary to hide setters while exposing getters
-namespace pitch {
-    template<typename T>
+namespace pitch
+{
+    template <typename T>
     class decoder;
 }
 
@@ -43,12 +44,22 @@ namespace pitch::messages
             /// auction update, pages 14-15, there are separate versions of this message for BYX and BZX
             auction_update = 8
         };
+
+        /// @brief enum to differentiate buy from sell orders
+        enum side_type
+        {
+            unknown_side,
+            sell,
+            buy
+        };
         virtual message_type get_type() { return message_type::unknown_message; }
-        uint64_t get_timestamp() {return timestamp;}
-        void set_timestamp(uint64_t _timestamp) {timestamp = _timestamp;}
-        protected:
+        uint64_t get_timestamp() { return timestamp; }
+        void set_timestamp(uint64_t _timestamp) { timestamp = _timestamp; }
+
+    protected:
         message(uint64_t _timestamp) : timestamp(_timestamp) {}
-        private:
+
+    private:
         uint64_t timestamp;
     };
 }
