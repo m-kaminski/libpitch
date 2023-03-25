@@ -5,21 +5,17 @@
 
 #include "message.h"
 
-
-namespace pitch
+namespace pitch::messages
 {
-    namespace messages
+
+    class message_test : public ::testing::Test
     {
+    };
 
-        class message_test : public ::testing::Test
-        {
-        };
-
-        TEST_F(message_test, construct)
-        {
-            message m;
-            EXPECT_EQ(m.get_type(), message_type::unknown_message);
-        }
+    TEST_F(message_test, construct)
+    {
+        message m;
+        EXPECT_EQ(m.get_type(), message_type::unknown_message);
     }
 }
 
