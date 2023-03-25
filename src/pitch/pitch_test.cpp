@@ -19,7 +19,7 @@ namespace pitch
         decoder<std::shared_ptr<messages::message>> d;
         auto s_p =
             d.decode_message(line.begin(), line.end());
-        EXPECT_EQ(s_p->get_type(), messages::message_type::unknown_message);
+        EXPECT_EQ(s_p->get_type(), messages::message::message_type::unknown_message);
         static_assert(std::is_same<decltype(s_p), std::shared_ptr<messages::message>>::value,
                       "expecting a shared pointer");
     }
@@ -29,7 +29,7 @@ namespace pitch
         std::string line;
         decoder<std::unique_ptr<messages::message>> d;
         auto u_p = d.decode_message(line.begin(), line.end());
-        EXPECT_EQ(u_p->get_type(), messages::message_type::unknown_message);
+        EXPECT_EQ(u_p->get_type(), messages::message::message_type::unknown_message);
         static_assert(std::is_same<decltype(u_p), std::unique_ptr<messages::message>>::value,
                       "expecting a unique pointer");
     }
@@ -39,7 +39,7 @@ namespace pitch
         std::string line;
         decoder d;
         auto u_p = d.decode_message(line.begin(), line.end());
-        EXPECT_EQ(u_p->get_type(), messages::message_type::unknown_message);
+        EXPECT_EQ(u_p->get_type(), messages::message::message_type::unknown_message);
         static_assert(std::is_same<decltype(u_p), std::unique_ptr<messages::message>>::value,
                       "expecting a unique pointer");
     }

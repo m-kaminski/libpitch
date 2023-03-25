@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
 #include <iostream>
 #include <string>
-#include <cassert>
+#include <memory>
 
 #include "message.h"
 
@@ -15,7 +15,19 @@ namespace pitch::messages
     TEST_F(message_test, construct)
     {
         message m;
-        EXPECT_EQ(m.get_type(), message_type::unknown_message);
+        EXPECT_EQ(m.get_type(), message::unknown_message);
+    }
+
+    TEST_F(message_test, construct_executed)
+    {
+        std::shared_ptr<message> m(new order_executed);
+        EXPECT_EQ(m->get_type(), message::order_executed);
+    }
+
+    TEST_F(message_test, construct_add)
+    {
+        std::shared_ptr<message> m(new add_order);
+        EXPECT_EQ(m->get_type(), message::add_order);
     }
 }
 
