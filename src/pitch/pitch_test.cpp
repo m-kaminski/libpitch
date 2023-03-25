@@ -57,6 +57,15 @@ namespace pitch
         EXPECT_NO_THROW(dynamic_cast<messages::add_order&>(*u_p));
         EXPECT_NE(nullptr, dynamic_cast<messages::add_order*>(u_p.get()));
     }
+
+    TEST_F(pitch_test, timestamp_parsed_add)
+    {
+        std::string line("29000020AA000ABDDCF0XS000300AMD   0000213700Y");
+        decoder d;
+        auto u_p = d.decode_message(line.begin(), line.end());
+        EXPECT_EQ(dynamic_cast<messages::add_order&>(*u_p).get_timestamp(),29000020LL);
+    }
+    
 }
 
 int main(int argc, char **argv)

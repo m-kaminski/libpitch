@@ -20,7 +20,7 @@ namespace pitch::messages
             sell,
             buy
         };
-        add_order() : message(1) {}
+        add_order(uint64_t timestamp) : message(timestamp) {}
 
         message_type get_type() { return message_type::add_order; }
         uint64_t get_order_id() { return order_id; }
@@ -72,21 +72,21 @@ namespace pitch::messages
     {
     private:
         template <typename T2>
-        static T1 decode_message_add_order_short(T2 begin, T2 end)
+        static T1 decode_message_add_order_short(T2 begin, T2 end, uint64_t timestamp)
         {
             T1 p_result;
 
-            p_result.reset(new add_order);
+            p_result.reset(new add_order(timestamp));
 
             return p_result;
         }
 
         template <typename T2>
-        static T1 decode_message_add_order_long(T2 begin, T2 end)
+        static T1 decode_message_add_order_long(T2 begin, T2 end, uint64_t timestamp)
         {
             T1 p_result;
 
-            p_result.reset(new add_order);
+            p_result.reset(new add_order(timestamp));
 
             return p_result;
         }

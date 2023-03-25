@@ -4,6 +4,7 @@
 #include <array>
 #include <functional>
 #include "messages/message.h"
+#include "types/base.h"
 namespace pitch
 {
 
@@ -28,14 +29,24 @@ namespace pitch
             T1 p_result;
             if (end - begin < 9)
                 return p_result;
+            uint64_t ts = parse_timestamp(begin);
             // message type is always single character at offset 8
             switch (*(begin+8)) {
                 case 'E': return messages::decode_message_order_executed<T1,T2>(begin, end);
-                case 'A': return messages::_add_decoder<T1>::decode_message_add_order_short(begin, end);
-                case 'd': return messages::_add_decoder<T1>::decode_message_add_order_long(begin, end);
+                case 'A': return messages::_add_decoder<T1>::decode_message_add_order_short(begin, end, ts);
+                case 'd': return messages::_add_decoder<T1>::decode_message_add_order_long(begin, end, ts);
                 default: ;
             }
             return p_result;
+        }
+    private:
+        /**
+         * Extract timestamp from first 8 bytes of the message;
+         * For every message type timestamp is 8 byte
+         */
+        template <typename T2>
+        static uint64_t parse_timestamp(T2 begin) {
+            return types::read_base<10>(begin, begin+8);
         }
     };
 }
