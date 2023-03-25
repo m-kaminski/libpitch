@@ -22,22 +22,21 @@ namespace pitch
          * @param T2 input type of an iterator
          * @param begin begining of line to decode
          * @param end end of line to decode
+         * @return smart pointer of given type to message being extracted
          */
         template <typename T2>
         static T1 decode_message(T2 begin, T2 end)
         {
-            T1 p_result;
             if (end - begin < 9)
-                return p_result;
+                throw std::invalid_argument("Invalid range, too short to determine message type");
             uint64_t ts = parse_timestamp(begin);
             // message type is always single character at offset 8
             switch (*(begin+8)) {
                 case 'E': return messages::_order_executed_decoder<T1>::decode_message(begin, end,ts);
-                case 'A': return messages::_add_decoder<T1>::decode_message_short(begin, end, ts);
-                case 'd': return messages::_add_decoder<T1>::decode_message_long(begin, end, ts);
-                default: ;
+                case 'A': return messages::_add_order_decoder<T1>::decode_message_short(begin, end, ts);
+                case 'd': return messages::_add_order_decoder<T1>::decode_message_long(begin, end, ts);
+                default: throw std::invalid_argument("Unknown message type");
             }
-            return p_result;
         }
     private:
         /**
@@ -46,9 +45,13 @@ namespace pitch
          */
         template <typename T2>
         static uint64_t parse_timestamp(T2 begin) {
-            return types::get_base<10>(begin, begin+8);
+            return types::get_base<10>(_OFFSET_PAIR(0,8));
         }
     };
 }
+// Undefine internal implementation details
+#ifdef _OFFSET_PAIR
+#undef _OFFSET_PAIR
+#endif
 
 #endif

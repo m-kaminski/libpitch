@@ -12,7 +12,39 @@ namespace pitch::messages
 {
 
     /**
-     * Class representing
+     * Class representing add order message
+     *  
+     *   ------------------ ADD ORDER: Standard (short) format ----------------
+     *   FIELD          OFFSET    LENGTH    DATA TYPE (cboe)    DATA TYPE (C++)
+     *   timestamp      0         8         decimal             uint64_t
+     *   type           8         1         alpha ("A")         message_type
+     *   order_id       9         12        base36              uint64_t
+     *   side           21        1         alpha ("B"/"S")     side_type
+     *   shares         22        6         decimal             uint64_t
+     *   stock_symbol   28        6         printable ascii     std::string
+     *   price          34        10        price(decimal)      uint64_t
+     *   display        44        1         Alpha ("Y"/"N")     N/A (ignore)
+     *   LF             45
+     *
+     *   ------------------ ADD ORDER: Extended (long) format -----------------
+     *   FIELD          OFFSET    LENGTH    DATA TYPE (cboe)    DATA TYPE (C++)
+     *   timestamp      0         8         decimal             uint64_t
+     *   type           8         1         alpha ("d")         message_type
+     *   order_id       9         12        base36              uint64_t
+     *   side           21        1         alpha ("B"/"S")     side_type
+     *   shares         22        6         decimal             uint64_t
+     *   stock_symbol   28        8         printable ascii     std::string
+     *   price          36        10        price(decimal)      uint64_t
+     *   display        46        1         Alpha ("Y"/"N")     N/A (ignore)
+     *   participant    47        4         Alpha               N/A (ignore)
+     *   customer       51        1         Alphanumeric        N/A (ignore)
+     *   LF             52
+     *
+     * Up to stock symbol offsets are equal; symbol length differs, and offset differ for price
+     *
+     * Source specification:
+     * https://cdn.cboe.com/resources/membership/Cboe_US_Equities_TCP_PITCH_Specification.pdf
+     * As of: March 25, 2022 (pages 7-8)
      */
     class add_order : public message
     {
@@ -68,45 +100,11 @@ namespace pitch::messages
     };
 
     /**
-     *   ------------------ ADD ORDER: Standard (short) format ----------------
-     *   FIELD          OFFSET    LENGTH    DATA TYPE (cboe)    DATA TYPE (C++)
-     *   timestamp      0         8         decimal             uint64_t
-     *   type           8         1         alpha ("A")         message_type
-     *   order_id       9         12        base36              uint64_t
-     *   side           21        1         alpha ("B"/"S")     side_type
-     *   shares         22        6         decimal             uint64_t
-     *   stock_symbol   28        6         printable ascii     std::string
-     *   price          34        10        price(decimal)      uint64_t
-     *   display        44        1         Alpha ("Y"/"N")     N/A (ignore)
-     *   LF             45
-     *
-     *   ------------------ ADD ORDER: Extended (long) format -----------------
-     *   FIELD          OFFSET    LENGTH    DATA TYPE (cboe)    DATA TYPE (C++)
-     *   timestamp      0         8         decimal             uint64_t
-     *   type           8         1         alpha ("d")         message_type
-     *   order_id       9         12        base36              uint64_t
-     *   side           21        1         alpha ("B"/"S")     side_type
-     *   shares         22        6         decimal             uint64_t
-     *   stock_symbol   28        8         printable ascii     std::string
-     *   price          36        10        price(decimal)      uint64_t
-     *   display        46        1         Alpha ("Y"/"N")     N/A (ignore)
-     *   participant    47        4         Alpha               N/A (ignore)
-     *   customer       51        1         Alphanumeric        N/A (ignore)
-     *   LF             52
-     *
-     * Up to stock symbol offsets are equal; symbol length differs, and offset differ for price
-     *
-     * Source specification:
-     * https://cdn.cboe.com/resources/membership/Cboe_US_Equities_TCP_PITCH_Specification.pdf
-     * As of: March 25, 2022 (pages 7-8)
-     */
-
-    /**
      * Class implementing builder pattern for add_order. All methods and data fields are private
      * as it is only meant to be called by friend pitch::decoder<T1>
     */
     template <typename T1>
-    class _add_decoder
+    class _add_order_decoder
     {
         private:
         

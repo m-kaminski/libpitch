@@ -7,6 +7,22 @@
 namespace pitch::messages
 {
 
+    /**
+     * Class representing Order Executed message
+     * 
+     *   --------------- ORDER EXECUTED: Standard (short) format ---------------
+     *   FIELD           OFFSET    LENGTH    DATA TYPE (cboe)   DATA TYPE (C++)
+     *   timestamp       0         8         decimal            uint64_t
+     *   type            8         1         alpha ("E")        message_type
+     *   order_id        9         12        base36             uint64_t
+     *   executed_shares 21        6         decimal            uint64_t
+     *   execution_id    27        12        base36             uint64_t
+     *   LF              39
+     *
+     * Source specification:
+     * https://cdn.cboe.com/resources/membership/Cboe_US_Equities_TCP_PITCH_Specification.pdf
+     * As of: March 25, 2022 (page 9)
+     */
     class order_executed : public message
     {
     public:
@@ -40,20 +56,6 @@ namespace pitch::messages
         uint64_t execution_id;
     };
 
-    /**
-     *   ------------------ ADD ORDER: Standard (short) format ----------------
-     *   FIELD           OFFSET    LENGTH    DATA TYPE (cboe)   DATA TYPE (C++)
-     *   timestamp       0         8         decimal            uint64_t
-     *   type            8         1         alpha ("E")        message_type
-     *   order_id        9         12        base36             uint64_t
-     *   executed_shares 21        6         decimal            uint64_t
-     *   execution_id    27        12        base36             uint64_t
-     *   LF              39
-     *
-     * Source specification:
-     * https://cdn.cboe.com/resources/membership/Cboe_US_Equities_TCP_PITCH_Specification.pdf
-     * As of: March 25, 2022 (page 9)
-     */
 
     /**
      * Class implementing builder pattern for order_executed. All methods and data fields are private

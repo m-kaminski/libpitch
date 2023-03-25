@@ -6,6 +6,13 @@
 #include <algorithm>
 namespace pitch::types {
 
+    /***
+     * Extract space-padded string into a target string
+     * @param begin input iterator for begining of string
+     * @param begin input iterator right after last character
+     * @param out_begin output iterator where string is to be written
+     * @return output iterator just after string that was added
+     */
     template <typename T1, typename T2>
     T2 copy_padded_string(T1 begin, const T1 &end, T2 out_begin)
     {
@@ -23,6 +30,12 @@ namespace pitch::types {
         return out_begin;
     };
 
+    /***
+     * Extract space-padded string, return it
+     * @param begin input iterator for begining of string
+     * @param begin input iterator right after last character
+     * @return value of string
+     */
     template <typename T>
     std::string get_padded_string(T begin, const T &end)
     {
