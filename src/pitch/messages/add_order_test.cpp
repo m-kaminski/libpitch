@@ -31,6 +31,38 @@ namespace pitch::messages
         EXPECT_EQ(a->get_price(), 213700);
     }
     
+    TEST_F(add_test, test_build_short_error_handling_long_input)
+    {
+        std::string line("29000020AA000ABDDCF0XS000300AMD   0000213700Y ");
+        pitch::decoder d;
+
+        EXPECT_THROW(d.decode_message(line.begin(), line.end()), std::invalid_argument);
+        try
+        {
+            d.decode_message(line.begin(), line.end());
+        }
+        catch (const std::invalid_argument &e)
+        {
+            EXPECT_STREQ("expected length of 45", e.what());
+        }
+    }
+    
+    TEST_F(add_test, test_build_short_error_handling_short_input)
+    {
+        std::string line("29000020AA000ABDDCF0XS000300AMD   0000213700");
+        pitch::decoder d;
+
+        EXPECT_THROW(d.decode_message(line.begin(), line.end()), std::invalid_argument);
+        try
+        {
+            d.decode_message(line.begin(), line.end());
+        }
+        catch (const std::invalid_argument &e)
+        {
+            EXPECT_STREQ("expected length of 45", e.what());
+        }
+    }
+    
 }
 
 int main(int argc, char **argv)
