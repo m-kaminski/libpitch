@@ -3,6 +3,12 @@ target_compile_options(message_test PRIVATE -g -O0 --coverage -fprofile-arcs -ft
 target_link_libraries(message_test GTest::gtest_main gcov)
 gtest_discover_tests(message_test)
 
+# keep same ordering of tests, as ordering of messages in Cboe spec
+add_executable(symbol_clear_test symbol_clear_test.cpp)
+target_compile_options(symbol_clear_test PRIVATE -g -O0 --coverage -fprofile-arcs -ftest-coverage)
+target_link_libraries(symbol_clear_test GTest::gtest_main gcov)
+gtest_discover_tests(symbol_clear_test)
+
 add_executable(add_order_test add_order_test.cpp)
 target_compile_options(add_order_test PRIVATE -g -O0 --coverage -fprofile-arcs -ftest-coverage)
 target_link_libraries(add_order_test GTest::gtest_main gcov)
