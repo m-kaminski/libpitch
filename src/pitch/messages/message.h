@@ -47,7 +47,7 @@ namespace pitch::messages
             auction_update = 8,
             /// auction summary, pages 15-16
             auction_summary = 9,
-            /// retail price improvement
+            /// retail price improvement (page 17)
             retail_price_improvement = 10
         };
 
@@ -78,5 +78,6 @@ namespace pitch::messages
 #include "trading_status.h"
 #include "auction_update.h"
 #include "auction_summary.h"
+#include "retail_price_improvement.h"
 
 #endif

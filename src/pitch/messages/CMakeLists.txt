@@ -48,3 +48,8 @@ add_executable(auction_summary_test auction_summary_test.cpp)
 target_compile_options(auction_summary_test PRIVATE -g -O0 --coverage -fprofile-arcs -ftest-coverage)
 target_link_libraries(auction_summary_test GTest::gtest_main gcov)
 gtest_discover_tests(auction_summary_test)
+
+add_executable(retail_price_improvement_test retail_price_improvement_test.cpp)
+target_compile_options(retail_price_improvement_test PRIVATE -g -O0 --coverage -fprofile-arcs -ftest-coverage)
+target_link_libraries(retail_price_improvement_test GTest::gtest_main gcov)
+gtest_discover_tests(retail_price_improvement_test)

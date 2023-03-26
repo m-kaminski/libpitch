@@ -153,6 +153,18 @@ namespace pitch
         EXPECT_NE(nullptr, dynamic_cast<messages::auction_summary*>(u_p.get()));
     }
 
+    TEST_F(pitch_test, construct_default_retail_price_improvement)
+    {
+        std::string line("29000020RAAPL    A");
+        decoder d;
+        auto u_p = d.decode_message(line.begin(), line.end());
+        EXPECT_EQ(u_p->get_type(), messages::message::message_type::retail_price_improvement);
+        static_assert(std::is_same<decltype(u_p), std::unique_ptr<messages::message>>::value,
+                      "expecting a unique pointer");
+        EXPECT_NO_THROW(dynamic_cast<messages::retail_price_improvement&>(*u_p));
+        EXPECT_NE(nullptr, dynamic_cast<messages::retail_price_improvement*>(u_p.get()));
+    }
+
     TEST_F(pitch_test, timestamp_parsed_add)
     {
         std::string line("29000020AA000ABDDCF0XS000300AMD   0000213700Y");

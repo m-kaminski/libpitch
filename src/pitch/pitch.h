@@ -56,6 +56,8 @@ namespace pitch
                 return messages::_auction_update_decoder<T1>::decode_message(begin, end, ts);
             case 'J':
                 return messages::_auction_summary_decoder<T1>::decode_message(begin, end, ts);
+            case 'R':
+                return messages::_retail_price_improvement_decoder<T1>::decode_message(begin, end, ts);
             default:
                 throw std::invalid_argument("Unknown message type");
             }
