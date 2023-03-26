@@ -129,6 +129,17 @@ namespace pitch
         EXPECT_NO_THROW(dynamic_cast<messages::auction_update&>(*u_p));
         EXPECT_NE(nullptr, dynamic_cast<messages::auction_update*>(u_p.get()));
     }
+    TEST_F(pitch_test, construct_default_auction_summary)
+    {        
+        std::string line("29000020JAAPL    C00002137000000001000");
+        decoder d;
+        auto u_p = d.decode_message(line.begin(), line.end());
+        EXPECT_EQ(u_p->get_type(), messages::message::message_type::auction_summary);
+        static_assert(std::is_same<decltype(u_p), std::unique_ptr<messages::message>>::value,
+                      "expecting a unique pointer");
+        EXPECT_NO_THROW(dynamic_cast<messages::auction_summary&>(*u_p));
+        EXPECT_NE(nullptr, dynamic_cast<messages::auction_summary*>(u_p.get()));
+    }
 
     TEST_F(pitch_test, timestamp_parsed_add)
     {

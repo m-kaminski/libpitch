@@ -55,6 +55,8 @@ namespace pitch
                 return messages::_trading_status_decoder<T1>::decode_message(begin, end, ts);
             case 'I':
                 return messages::_auction_update_decoder<T1>::decode_message(begin, end, ts);
+            case 'J':
+                return messages::_auction_summary_decoder<T1>::decode_message(begin, end, ts);
             default:
                 throw std::invalid_argument("Unknown message type");
             }

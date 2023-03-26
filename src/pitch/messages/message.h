@@ -41,8 +41,12 @@ namespace pitch::messages
             trade_break = 6,
             /// page 13
             trading_status = 7,
-            /// auction update, pages 14-15, there are separate versions of this message for BYX and BZX
-            auction_update = 8
+            /// auction update, pages 14-15, there are separate definitions
+            /// of this message for BYX and BZX but single class for parser
+            /// as these are compatible
+            auction_update = 8,
+            /// auction summary, pages 15-16
+            auction_summary = 9
         };
 
         /**
@@ -71,5 +75,6 @@ namespace pitch::messages
 #include "trade_break.h"
 #include "trading_status.h"
 #include "auction_update.h"
+#include "auction_summary.h"
 
 #endif

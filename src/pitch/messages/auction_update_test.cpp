@@ -17,7 +17,7 @@ namespace pitch::messages
     TEST_F(auction_update_test, test_build_short)
     {
         std::string line("29000020IAAPL    C00002137000000001000000000200000002100000000500000");
-        //[29000020][X][AAPL    ][C][0000213700][0000001000][0000002000][0000210000][0000500000]
+        //[29000020][I][AAPL    ][C][0000213700][0000001000][0000002000][0000210000][0000500000]
 
         pitch::decoder d;
         auto p = d.decode_message(line.begin(), line.end());
