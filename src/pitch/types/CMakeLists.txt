@@ -17,3 +17,8 @@ add_executable(side_test side_test.cpp)
 target_compile_options(side_test PRIVATE -g -O0 --coverage -fprofile-arcs -ftest-coverage)
 target_link_libraries(side_test GTest::gtest_main gcov)
 gtest_discover_tests(side_test)
+
+add_executable(status_types_test status_types_test.cpp)
+target_compile_options(status_types_test PRIVATE -g -O0 --coverage -fprofile-arcs -ftest-coverage)
+target_link_libraries(status_types_test GTest::gtest_main gcov)
+gtest_discover_tests(status_types_test)
