@@ -56,6 +56,8 @@ namespace pitch::messages
         uint64_t timestamp;
     };
 }
+
+#include "symbol_clear.h"
 #include "add_order.h"
 #include "order_executed.h"
 #include "order_cancel.h"

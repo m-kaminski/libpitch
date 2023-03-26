@@ -34,6 +34,17 @@ namespace pitch
                       "expecting a unique pointer");
     }
 
+    TEST_F(pitch_test, construct_default_symbol_clear)
+    {
+        std::string line("29000020sAAPL    ");
+        decoder d;
+        auto u_p = d.decode_message(line.begin(), line.end());
+        EXPECT_EQ(u_p->get_type(), messages::message::message_type::symbol_clear);
+        static_assert(std::is_same<decltype(u_p), std::unique_ptr<messages::message>>::value,
+                      "expecting a unique pointer");
+        EXPECT_NO_THROW(dynamic_cast<messages::symbol_clear&>(*u_p));
+        EXPECT_NE(nullptr, dynamic_cast<messages::symbol_clear*>(u_p.get()));
+    }
     TEST_F(pitch_test, construct_default_add)
     {
         std::string line("29000020AA000ABDDCF0XS000300AMD   0000213700Y");
