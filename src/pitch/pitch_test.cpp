@@ -120,7 +120,7 @@ namespace pitch
 
     TEST_F(pitch_test, construct_default_auction_update)
     {        
-        std::string line("29000020IAAPL    C0000213700000000100000000020000000210000");
+        std::string line("29000020IAAPL    C00002137000000001000000000200000002100000123456789");
         decoder d;
         auto u_p = d.decode_message(line.begin(), line.end());
         EXPECT_EQ(u_p->get_type(), messages::message::message_type::auction_update);

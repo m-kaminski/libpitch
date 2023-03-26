@@ -16,14 +16,21 @@ namespace pitch::messages
 
     TEST_F(auction_update_test, test_build_short)
     {
-        std::string line("29000020IAAPL    C0000213700000000100000000020000000210000");
-        //[29000020][X][AAPL    ][C][0000213700][0000001000][0000002000][0000210000]
+        std::string line("29000020IAAPL    C00002137000000001000000000200000002100000000500000");
+        //[29000020][X][AAPL    ][C][0000213700][0000001000][0000002000][0000210000][0000500000]
 
         pitch::decoder d;
         auto p = d.decode_message(line.begin(), line.end());
         auction_update * a = dynamic_cast<auction_update*>(p.get());
         EXPECT_EQ(a->get_timestamp(), 29000020LL);
         EXPECT_EQ(a->get_symbol(), "AAPL");
+        EXPECT_EQ(a->get_auction_type(), types::auction_type::closing_auction);
+
+        EXPECT_EQ(a->get_reference_price(), 213700);
+        EXPECT_EQ(a->get_buy_shares(), 1000);
+        EXPECT_EQ(a->get_sell_shares(), 2000);
+        EXPECT_EQ(a->get_indicative_price(), 210000);
+        EXPECT_EQ(a->get_auction_price(), 500000);
     }
     
     TEST_F(auction_update_test, test_build_short_error_handling_long_input)
@@ -38,7 +45,7 @@ namespace pitch::messages
         }
         catch (const std::invalid_argument &e)
         {
-            EXPECT_STREQ("expected length of 58 for auction update message", e.what());
+            EXPECT_STREQ("expected length of 68 for auction update message", e.what());
         }
     }
     
@@ -54,7 +61,7 @@ namespace pitch::messages
         }
         catch (const std::invalid_argument &e)
         {
-            EXPECT_STREQ("expected length of 58 for auction update message", e.what());
+            EXPECT_STREQ("expected length of 68 for auction update message", e.what());
         }
     }
     }
