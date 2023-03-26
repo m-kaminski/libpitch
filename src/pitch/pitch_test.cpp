@@ -72,6 +72,18 @@ namespace pitch
         EXPECT_NE(nullptr, dynamic_cast<messages::order_cancel*>(u_p.get()));
     }
 
+    TEST_F(pitch_test, construct_default_trade)
+    {
+        std::string line("28880387P4K27GA0000EZB000100DRYS  0001074900000A001NJEPR");
+        decoder d;
+        auto u_p = d.decode_message(line.begin(), line.end());
+        EXPECT_EQ(u_p->get_type(), messages::message::message_type::trade);
+        static_assert(std::is_same<decltype(u_p), std::unique_ptr<messages::message>>::value,
+                      "expecting a unique pointer");
+        EXPECT_NO_THROW(dynamic_cast<messages::trade&>(*u_p));
+        EXPECT_NE(nullptr, dynamic_cast<messages::trade*>(u_p.get()));
+    }
+
     TEST_F(pitch_test, timestamp_parsed_add)
     {
         std::string line("29000020AA000ABDDCF0XS000300AMD   0000213700Y");
@@ -80,6 +92,7 @@ namespace pitch
         EXPECT_EQ(dynamic_cast<messages::add_order&>(*u_p).get_timestamp(),29000020LL);
     }
     
+
 }
 
 int main(int argc, char **argv)

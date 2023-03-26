@@ -33,6 +33,8 @@ namespace pitch::messages
                                      order_id(_order_id),
                                      executed_shares(_shares),
                                      execution_id(_execution_id) {}
+
+
         message_type get_type() { return message_type::order_executed; }
 
         /**
@@ -46,7 +48,7 @@ namespace pitch::messages
         uint64_t get_executed_shares() { return executed_shares; }
 
         /**
-         * Get id of an order (this is id earlier set in add_order)
+         * Get id of execution (don't confuse w/ order id)
          */
         uint64_t get_execution_id() { return execution_id; }
 
@@ -78,7 +80,7 @@ namespace pitch::messages
 
             return T1(new order_executed(timestamp, order_id, shares, execution_id));
         }
-        
+
         static const off_t order_id_offset = 9;
         static const off_t order_id_length = 12;
         static const off_t shares_offset = 21;

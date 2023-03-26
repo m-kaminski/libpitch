@@ -20,7 +20,7 @@ namespace pitch::messages
      *
      * Source specification:
      * https://cdn.cboe.com/resources/membership/Cboe_US_Equities_TCP_PITCH_Specification.pdf
-     * As of: March 25, 2022 (page 9)
+     * As of: March 25, 2022 (page 10)
      */
     class order_cancel : public message
     {
@@ -75,7 +75,7 @@ namespace pitch::messages
         static const off_t shares_offset = 21;
         static const off_t shares_length = 6;
         static const off_t length = 27;
-        
+
         friend class pitch::decoder<T1>;
     };
 }

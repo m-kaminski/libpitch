@@ -59,5 +59,6 @@ namespace pitch::messages
 #include "add_order.h"
 #include "order_executed.h"
 #include "order_cancel.h"
+#include "trade.h"
 
 #endif
