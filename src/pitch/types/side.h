@@ -13,6 +13,12 @@ namespace pitch::types
         buy
     };
 
+    /**
+     * convert side field in stream into side_type, for usage in trade and add_order
+     * messages.
+     * @param begin iterator to character
+     * @throw std::invalid_argument if character is not 'S' or 'B'
+     */
     template <typename T>
     side_type get_side(T begin)
     {
