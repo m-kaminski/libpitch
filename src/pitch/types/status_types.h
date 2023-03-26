@@ -16,7 +16,6 @@ namespace pitch::types
         trading
     };
 
-
     /// @brief enum track reg SHO actions
     enum reg_sho_action_type
     {
@@ -34,22 +33,25 @@ namespace pitch::types
     template <typename T>
     halt_status_type get_halt_status(T begin)
     {
-        if (*begin == 'A')
+        switch (*begin)
+        {
+        case 'A':
             return halt_status_type::accepting_orders;
-        else if (*begin == 'H')
+        case 'H':
             return halt_status_type::halted;
-        else if (*begin == 'Q')
+        case 'Q':
             return halt_status_type::quote_only;
-        else if (*begin == 'S')
+        case 'S':
             return halt_status_type::exchange_specific_suspension;
-        else if (*begin == 'T')
+        case 'T':
             return halt_status_type::trading;
-        else
+        default:
             throw std::invalid_argument("Valid halt status is 'A'/'H'/'Q'/'S'/'T'");
+        }
     };
 
     /**
-     * convert reg SHO actions field in stream into reg_sho_action_type, 
+     * convert reg SHO actions field in stream into reg_sho_action_type,
      * for usage in trade and add_order messages.
      * @param begin iterator to character
      * @throw std::invalid_argument if character is not 'S' or 'B'
