@@ -10,11 +10,25 @@ https://cdn.cboe.com/resources/membership/Cboe_US_Equities_TCP_PITCH_Specificati
 ```src/pitch/pitch.h``` includes main header for the library. Library is of header-only type,
 so nothing has to be compiled before including it in our program
 
-at heart of library there are:
+at core of library there are two classes:
 
-* ```pitch::parser``` class implementing parsing process
+* ```pitch::decoder``` class implementing parsing process; Member function ```decode_message``` generates a
+     smart pointer to a ```message``` type object
 * ```pitch::messages::message``` class and its derived classes representing all the kinds of messages
-* ```pitch::messages::message_type``` enum to represent types of messages
+    * ```pitch::messages::message::message_type``` enum to represent types of messages, names correspond to
+              names of child classes of the ```message```
+
+In addition there are following classes to represent distinct types of messages generated in Cboe PITCH stream:
+* ```pitch::messages::symbol_clear```
+* ```pitch::messages::add_order```
+* ```pitch::messages::order_executed```
+* ```pitch::messages::order_cancel```
+* ```pitch::messages::trade```
+* ```pitch::messages::trade_break```
+* ```pitch::messages::trading_status```
+* ```pitch::messages::auction_update```
+
+Every single one of these messages has getter methods corresponding to fields in PITCH message stream
 
 ## format
 
