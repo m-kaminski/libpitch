@@ -45,7 +45,7 @@ namespace pitch::types
         EXPECT_EQ(halt_status_type::trading, to);
     }
 
-    TEST_F(status_types_test, string_extract_exception)
+    TEST_F(status_types_test, string_extract_halt_status_exception)
     {
         std::string from(" X ");
 
@@ -60,6 +60,34 @@ namespace pitch::types
         }
     }
 
+    TEST_F(status_types_test, string_extract_no_price_test)
+    {
+        std::string from(" 0 ");
+        reg_sho_action_type to = get_reg_sho_action(next(from.begin()));
+        EXPECT_EQ(reg_sho_action_type::no_price_test, to);
+    }
+
+    TEST_F(status_types_test, string_extract_price_test)
+    {
+        std::string from(" 1 ");
+        reg_sho_action_type to = get_reg_sho_action(next(from.begin()));
+        EXPECT_EQ(reg_sho_action_type::price_test, to);
+    }
+
+    TEST_F(status_types_test, string_extract_reg_sho_action_exception)
+    {
+        std::string from(" X ");
+
+        EXPECT_THROW(get_reg_sho_action(next(from.begin())), std::invalid_argument);
+        try
+        {
+            get_reg_sho_action(next(from.begin()));
+        }
+        catch (const std::invalid_argument &e)
+        {
+            EXPECT_STREQ("Valid reg SHO action status is either '0' or '1'", e.what());
+        }
+    }
 }
 
 int main(int argc, char **argv)
