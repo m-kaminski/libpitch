@@ -13,5 +13,5 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 include(GoogleTest)
-
-add_subdirectory(pitch)
+include_directories(include/)
+add_subdirectory(unit_test)

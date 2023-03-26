@@ -1,3 +1,4 @@
+include_directories(../../include/pitch/types)
 
 add_executable(auction_test auction_test.cpp)
 target_compile_options(auction_test PRIVATE -g -O0 --coverage -fprofile-arcs -ftest-coverage)
