@@ -34,14 +34,14 @@ namespace pitch
                       "expecting a unique pointer");
     }
 
-    TEST_F(pitch_test, construct_bare_pointer)
+    TEST_F(pitch_test, construct_raw_pointer)
     {
         std::string line("29000600EA000ABDDCF0X0000200000ZAB00091");
         decoder<messages::message *> d;
         auto b_p = d.decode_message(line.begin(), line.end());
         EXPECT_EQ(b_p->get_type(), messages::message::message_type::order_executed);
         static_assert(std::is_same<decltype(b_p), messages::message *>::value,
-                      "expecting a unique pointer");
+                      "expecting a raw C-style pointer");
         delete b_p;
     }
 
