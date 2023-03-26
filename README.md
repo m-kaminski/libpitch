@@ -5,7 +5,7 @@ library to parse Cboe equities TCP depth of book (PITCH) stream.
 Implementation of specification from
 https://cdn.cboe.com/resources/membership/Cboe_US_Equities_TCP_PITCH_Specification.pdf
 
-# structure
+# Structure
 
 ```src/include/pitch/pitch.h``` includes main header for the library. Library is of header-only type,
 so nothing has to be compiled before including it in our program
@@ -32,15 +32,18 @@ In addition there are following classes to represent distinct types of messages 
 
 Every single one of these messages has getter methods corresponding to fields in PITCH message stream
 
-## design
+## Design
 
 Library is implemented using C++ templates, in such a manner that messages are returned using preferred
 smart pointer type of the user, or raw C-style pointer, however user prefers.
 
 Each input line is supplied as pair of iterators, iterator type is templatized, so even raw C-style pointers
-to a buffer can be used if your application performs I/O operations using low level C-style APIs
+to a buffer can be used if your application performs I/O operations using low level C-style APIs.
 
-## format
+Library implements builder design pattern, whereas there is builder for each message type, invoked from "main"
+builder in ```pitch::decoder::decode_message``` (in pitch/pitch.h). 
+
+## Format
 
 TCP depth of book (PITCH) stream is stream of text messages representing market event, including addition
 execution and removal of trades.
@@ -92,6 +95,36 @@ shares: 20 (so order above still has 280 shares outstanding)
 execution_id: 2765178694981 (ZAB00091 in base 36)
 ```
 
+## Usage
+
+Unit tests for message classes, located in ```src/unit_test/messages``` provide
+decent examples of usage of library function. Please consider simple example below:
+
+```
+std::string line("29000020AA000ABDDCF0XS000300AMD   0000213700Y");
+//[29000020][A][A000ABDDCF0X][S][000300][AMD   ][0000213700][Y]
+
+pitch::decoder d;
+auto p = d.decode_message(line.begin(), line.end());
+        
+// message type is defined for base class
+EXPECT_EQ(p->get_type(), message::add_order);
+
+// to access fields specific to add_order class, cast to add_order
+add_order * a = dynamic_cast<add_order*>(p.get());
+EXPECT_EQ(a->get_timestamp(), 29000020);
+EXPECT_EQ(a->get_type(), message::add_order);
+EXPECT_EQ(a->get_order_id(), 1316217846817392657LL);
+EXPECT_EQ(a->get_side(), types::side_type::sell);
+EXPECT_EQ(a->get_shares(), 300);
+EXPECT_EQ(a->get_symbol(), "AMD");
+EXPECT_EQ(a->get_price(), 213700);
+```
+
+In addition all the message classes have doxygen style comments and 
+detailed tables of fields with references to specific pages of Cboe
+PITCH format documentation.
+
 # Developing
 
 Following packages are essential to run and test libpitch in CentOS operating
@@ -110,5 +143,5 @@ ${workspaceFolder}/src/include/pitch
 
 Unit tests are located in
 ```
-src/unit_test/{path corresponding to src/include/libpitch/}
+src/unit_test/{path corresponding to src/include/pitch/}
 ```
