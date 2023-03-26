@@ -17,7 +17,6 @@ namespace pitch::types
         periodic_auction
     };
 
-
     /**
      * convert auction type field in stream into auction_type, for usage in
      * auction_summary and auction_update messages.
@@ -27,20 +26,23 @@ namespace pitch::types
     template <typename T>
     auction_type get_auction_type(T begin)
     {
-        if (*begin == 'O')
+        switch (*begin)
+        {
+        case 'O':
             return auction_type::opening_auction;
-        else if (*begin == 'C')
+        case 'C':
             return auction_type::closing_auction;
-        else if (*begin == 'H')
+        case 'H':
             return auction_type::halt_auction;
-        else if (*begin == 'I')
+        case 'I':
             return auction_type::ipo_auction;
-        else if (*begin == 'M')
+        case 'M':
             return auction_type::cboe_market_close;
-        else if (*begin == 'P')
+        case 'P':
             return auction_type::periodic_auction;
-        else
+        default:
             throw std::invalid_argument("Valid auction type is 'O'/'C'/'H'/'I'/'M'/'P'");
+        }
     };
 }
 #endif
