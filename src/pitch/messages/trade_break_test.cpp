@@ -9,26 +9,26 @@
 namespace pitch::messages
 {
 
-    class symbol_clear_test : public ::testing::Test
+    class trade_break_test : public ::testing::Test
     {
     };
 
 
-    TEST_F(symbol_clear_test, test_build_short)
+    TEST_F(trade_break_test, test_build_short)
     {
-        std::string line("29000020sAAPL    ");
-        //[29000020][X][AAPL    ]
+        std::string line("29000020B4K27GA0000EZ");
+        //[29000020][B][4K27GA0000EZ]
 
         pitch::decoder d;
         auto p = d.decode_message(line.begin(), line.end());
-        symbol_clear * a = dynamic_cast<symbol_clear*>(p.get());
+        trade_break * a = dynamic_cast<trade_break*>(p.get());
         EXPECT_EQ(a->get_timestamp(), 29000020LL);
-        EXPECT_EQ(a->get_symbol(), "AAPL");
+        EXPECT_EQ(a->get_execution_id(), 599834127447466523LL);
     }
     
-    TEST_F(symbol_clear_test, test_build_short_error_handling_long_input)
+    TEST_F(trade_break_test, test_build_short_error_handling_long_input)
     {
-        std::string line("29000020sAAPL    too long input ");
+        std::string line("29000020B4K27GA0000EZ ");
         pitch::decoder d;
 
         EXPECT_THROW(d.decode_message(line.begin(), line.end()), std::invalid_argument);
@@ -38,13 +38,13 @@ namespace pitch::messages
         }
         catch (const std::invalid_argument &e)
         {
-            EXPECT_STREQ("expected length of 17 for symbol clear message", e.what());
+            EXPECT_STREQ("expected length of 21 for trade break message", e.what());
         }
     }
     
-    TEST_F(symbol_clear_test, test_build_short_error_handling_short_input)
+    TEST_F(trade_break_test, test_build_short_error_handling_short_input)
     {
-        std::string line("29000020sAAPL ");
+        std::string line("29000020B4K27GA000 ");
         pitch::decoder d;
 
         EXPECT_THROW(d.decode_message(line.begin(), line.end()), std::invalid_argument);
@@ -54,7 +54,7 @@ namespace pitch::messages
         }
         catch (const std::invalid_argument &e)
         {
-            EXPECT_STREQ("expected length of 17 for symbol clear message", e.what());
+            EXPECT_STREQ("expected length of 21 for trade break message", e.what());
         }
     }
     }
