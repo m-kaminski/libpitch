@@ -153,6 +153,7 @@ namespace pitch::messages
         static const off_t price_length = 10;
         static const off_t length_s = 45;
         static const off_t length_l = 52;
+        
         friend class pitch::decoder<T1>;
     };
 }

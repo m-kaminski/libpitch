@@ -34,6 +34,19 @@ namespace pitch
                       "expecting a unique pointer");
     }
 
+    TEST_F(pitch_test, construct_default_add)
+    {
+        std::string line("29000020AA000ABDDCF0XS000300AMD   0000213700Y");
+        decoder d;
+        auto u_p = d.decode_message(line.begin(), line.end());
+        EXPECT_EQ(u_p->get_type(), messages::message::message_type::add_order);
+        static_assert(std::is_same<decltype(u_p), std::unique_ptr<messages::message>>::value,
+                      "expecting a unique pointer");
+        EXPECT_NO_THROW(dynamic_cast<messages::add_order&>(*u_p));
+        EXPECT_NE(nullptr, dynamic_cast<messages::add_order*>(u_p.get()));
+    }
+
+
     TEST_F(pitch_test, construct_default_executed)
     {
         std::string line("29000600EA000ABDDCF0X0000200000ZAB00091");
@@ -46,16 +59,17 @@ namespace pitch
         EXPECT_NE(nullptr, dynamic_cast<messages::order_executed*>(u_p.get()));
     }
 
-    TEST_F(pitch_test, construct_default_add)
+
+    TEST_F(pitch_test, construct_default_cancel)
     {
-        std::string line("29000020AA000ABDDCF0XS000300AMD   0000213700Y");
+        std::string line("28800168X1K27GA00000Y000100");
         decoder d;
         auto u_p = d.decode_message(line.begin(), line.end());
-        EXPECT_EQ(u_p->get_type(), messages::message::message_type::add_order);
+        EXPECT_EQ(u_p->get_type(), messages::message::message_type::order_cancel);
         static_assert(std::is_same<decltype(u_p), std::unique_ptr<messages::message>>::value,
                       "expecting a unique pointer");
-        EXPECT_NO_THROW(dynamic_cast<messages::add_order&>(*u_p));
-        EXPECT_NE(nullptr, dynamic_cast<messages::add_order*>(u_p.get()));
+        EXPECT_NO_THROW(dynamic_cast<messages::order_cancel&>(*u_p));
+        EXPECT_NE(nullptr, dynamic_cast<messages::order_cancel*>(u_p.get()));
     }
 
     TEST_F(pitch_test, timestamp_parsed_add)

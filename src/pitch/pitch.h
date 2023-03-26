@@ -34,9 +34,10 @@ namespace pitch
             uint64_t ts = parse_timestamp(begin);
             // message type is always single character at offset 8
             switch (*(begin+8)) {
-                case 'E': return messages::_order_executed_decoder<T1>::decode_message(begin, end,ts);
                 case 'A': return messages::_add_order_decoder<T1>::decode_message_short(begin, end, ts);
                 case 'd': return messages::_add_order_decoder<T1>::decode_message_long(begin, end, ts);
+                case 'E': return messages::_order_executed_decoder<T1>::decode_message(begin, end,ts);
+                case 'X': return messages::_order_cancel_decoder<T1>::decode_message(begin, end,ts);
                 default: throw std::invalid_argument("Unknown message type");
             }
         }
