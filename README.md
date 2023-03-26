@@ -133,6 +133,12 @@ system (in other operating systems similar libraries may be needed)
 yum install g++ make cmake gtest gtest-devel gcov
 ```
 
+You can build and execute test cases using build script provided:
+```
+./build.sh
+```
+
+
 Following include path configuration is not needed for build, but may
 make it easier to edit if your source editor doesn't get it from
 parsing CMakeLists
