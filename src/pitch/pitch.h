@@ -49,6 +49,8 @@ namespace pitch
                 return messages::_trade_decoder<T1>::decode_message_short(begin, end, ts);
             case 'r':
                 return messages::_trade_decoder<T1>::decode_message_long(begin, end, ts);
+            case 'B':
+                return messages::_trade_break_decoder<T1>::decode_message(begin, end, ts);
             default:
                 throw std::invalid_argument("Unknown message type");
             }
