@@ -12,7 +12,7 @@ namespace pitch
 namespace pitch::messages
 {
     /**
-     * base class of a message
+     * base class of a message; Cannot be constructed on its own
      */
     class message
     {
@@ -45,13 +45,19 @@ namespace pitch::messages
             auction_update = 8
         };
 
+        /**
+         * Get type of given message (i.e. Add Order, Order Executed); Types of orders
+         * correspond to names of classes
+         */
         virtual message_type get_type() { return message_type::unknown_message; }
+
+        /**
+         * Get timestamp (number milliseconds past midnight Eastern Time)
+        */
         uint64_t get_timestamp() { return timestamp; }
-        void set_timestamp(uint64_t _timestamp) { timestamp = _timestamp; }
 
     protected:
         message(uint64_t _timestamp) : timestamp(_timestamp) {}
-
     private:
         uint64_t timestamp;
     };
