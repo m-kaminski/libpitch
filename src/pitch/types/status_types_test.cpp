@@ -10,35 +10,35 @@ namespace pitch::types
     {
     };
 
-    TEST_F(status_types_test, string_extract_orders)
+    TEST_F(status_types_test, accepting_orders)
     {
         std::string from(" A ");
         halt_status_type to = get_halt_status(next(from.begin()));
         EXPECT_EQ(halt_status_type::accepting_orders, to);
     }
 
-    TEST_F(status_types_test, string_extract_halted)
+    TEST_F(status_types_test, halted)
     {
         std::string from(" H ");
         halt_status_type to = get_halt_status(next(from.begin()));
         EXPECT_EQ(halt_status_type::halted, to);
     }
 
-    TEST_F(status_types_test, string_extract_quote_only)
+    TEST_F(status_types_test, quote_only)
     {
         std::string from(" Q ");
         halt_status_type to = get_halt_status(next(from.begin()));
         EXPECT_EQ(halt_status_type::quote_only, to);
     }
 
-    TEST_F(status_types_test, string_extract_suspension)
+    TEST_F(status_types_test, exchange_specific_suspension)
     {
         std::string from(" S ");
         halt_status_type to = get_halt_status(next(from.begin()));
         EXPECT_EQ(halt_status_type::exchange_specific_suspension, to);
     }
 
-    TEST_F(status_types_test, string_extract_trading)
+    TEST_F(status_types_test, trading)
     {
         std::string from(" T ");
         halt_status_type to = get_halt_status(next(from.begin()));
@@ -60,14 +60,14 @@ namespace pitch::types
         }
     }
 
-    TEST_F(status_types_test, string_extract_no_price_test)
+    TEST_F(status_types_test, no_price_test)
     {
         std::string from(" 0 ");
         reg_sho_action_type to = get_reg_sho_action(next(from.begin()));
         EXPECT_EQ(reg_sho_action_type::no_price_test, to);
     }
 
-    TEST_F(status_types_test, string_extract_price_test)
+    TEST_F(status_types_test, price_test)
     {
         std::string from(" 1 ");
         reg_sho_action_type to = get_reg_sho_action(next(from.begin()));

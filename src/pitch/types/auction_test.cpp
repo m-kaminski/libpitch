@@ -10,42 +10,42 @@ namespace pitch::types
     {
     };
 
-    TEST_F(auction_type_test, string_extract_opening_auction)
+    TEST_F(auction_type_test, opening_auction)
     {
         std::string from(" O ");
         auction_type to = get_auction_type(next(from.begin()));
         EXPECT_EQ(auction_type::opening_auction, to);
     }
 
-    TEST_F(auction_type_test, string_extract_closing_auction)
+    TEST_F(auction_type_test, closing_auction)
     {
         std::string from(" C ");
         auction_type to = get_auction_type(next(from.begin()));
         EXPECT_EQ(auction_type::closing_auction, to);
     }
 
-    TEST_F(auction_type_test, string_extract_halt_auction)
+    TEST_F(auction_type_test, halt_auction)
     {
         std::string from(" H ");
         auction_type to = get_auction_type(next(from.begin()));
         EXPECT_EQ(auction_type::halt_auction, to);
     }
 
-    TEST_F(auction_type_test, string_extract_ipo_auction)
+    TEST_F(auction_type_test, ipo_auction)
     {
         std::string from(" I ");
         auction_type to = get_auction_type(next(from.begin()));
         EXPECT_EQ(auction_type::ipo_auction, to);
     }
 
-    TEST_F(auction_type_test, string_extract_cboe_market_close)
+    TEST_F(auction_type_test, cboe_market_close)
     {
         std::string from(" M ");
         auction_type to = get_auction_type(next(from.begin()));
         EXPECT_EQ(auction_type::cboe_market_close, to);
     }
 
-    TEST_F(auction_type_test, string_extract_periodic_auction)
+    TEST_F(auction_type_test, periodic_auction)
     {
         std::string from(" P ");
         auction_type to = get_auction_type(next(from.begin()));

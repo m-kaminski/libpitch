@@ -28,3 +28,8 @@ add_executable(status_types_test status_types_test.cpp)
 target_compile_options(status_types_test PRIVATE -g -O0 --coverage -fprofile-arcs -ftest-coverage)
 target_link_libraries(status_types_test GTest::gtest_main gcov)
 gtest_discover_tests(status_types_test)
+
+add_executable(rpi_test rpi_test.cpp)
+target_compile_options(rpi_test PRIVATE -g -O0 --coverage -fprofile-arcs -ftest-coverage)
+target_link_libraries(rpi_test GTest::gtest_main gcov)
+gtest_discover_tests(rpi_test)
