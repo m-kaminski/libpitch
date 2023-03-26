@@ -72,6 +72,20 @@ namespace pitch::types
             EXPECT_STREQ("Invalid space padded string", e.what());
         }
     }
+
+    TEST_F(padded_string_test, string_empty)
+    {
+        std::string from("         ");
+        EXPECT_THROW(get_padded_string(from.begin(), from.end()), std::invalid_argument);
+        try
+        {
+            get_padded_string(from.begin(), from.end());
+        }
+        catch (const std::invalid_argument &e)
+        {
+            EXPECT_STREQ("Empty space padded string", e.what());
+        }
+    }
 }
 
 int main(int argc, char **argv)

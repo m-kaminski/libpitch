@@ -4,7 +4,8 @@
 #include <stdexcept>
 #include <functional>
 #include <algorithm>
-namespace pitch::types {
+namespace pitch::types
+{
 
     /***
      * Extract space-padded string into a target string
@@ -16,15 +17,25 @@ namespace pitch::types {
     template <typename T1, typename T2>
     T2 copy_padded_string(T1 begin, const T1 &end, T2 out_begin)
     {
-        while (begin != end) {
-            if (*begin == ' ') {
-                break;
-            }
+        if (*begin == ' ')
+        {
+            throw std::invalid_argument("Empty space padded string");
+        }
+
+        while (begin != end)
+        {
             *out_begin = *begin;
             out_begin++;
             begin++;
+
+            if (*begin == ' ')
+            {
+                break;
+            }
         }
-        if (!std::all_of(begin, end, std::bind(std::equal_to<char>(), ' ', std::placeholders::_1))) {
+
+        if (!std::all_of(begin, end, std::bind(std::equal_to<char>(), ' ', std::placeholders::_1)))
+        {
             throw std::invalid_argument("Invalid space padded string");
         }
         return out_begin;
@@ -40,7 +51,7 @@ namespace pitch::types {
     std::string get_padded_string(T begin, const T &end)
     {
         std::string result;
-        copy_padded_string(begin,end,back_inserter(result));
+        copy_padded_string(begin, end, back_inserter(result));
         return result;
     };
 }
