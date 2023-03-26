@@ -10,7 +10,7 @@ namespace pitch::messages
     /**
      * Class representing Order Cancel message
      * 
-     *   --------------- ORDER CANCEL: Standard (short) format ---------------
+     *   ---------------------------- ORDER CANCEL ----------------------------
      *   FIELD           OFFSET    LENGTH    DATA TYPE (cboe)   DATA TYPE (C++)
      *   timestamp       0         8         decimal            uint64_t
      *   type            8         1         alpha ("E")        message_type

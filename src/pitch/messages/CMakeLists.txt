@@ -33,3 +33,8 @@ add_executable(trade_break_test trade_break_test.cpp)
 target_compile_options(trade_break_test PRIVATE -g -O0 --coverage -fprofile-arcs -ftest-coverage)
 target_link_libraries(trade_break_test GTest::gtest_main gcov)
 gtest_discover_tests(trade_break_test)
+
+add_executable(trading_status_test trading_status_test.cpp)
+target_compile_options(trading_status_test PRIVATE -g -O0 --coverage -fprofile-arcs -ftest-coverage)
+target_link_libraries(trading_status_test GTest::gtest_main gcov)
+gtest_discover_tests(trading_status_test)

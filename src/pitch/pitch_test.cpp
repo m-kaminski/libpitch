@@ -106,6 +106,18 @@ namespace pitch
         EXPECT_NE(nullptr, dynamic_cast<messages::trade_break*>(u_p.get()));
     }
 
+    TEST_F(pitch_test, construct_default_trading_status)
+    {        
+        std::string line("29000020HAAPL    T0RR");
+        decoder d;
+        auto u_p = d.decode_message(line.begin(), line.end());
+        EXPECT_EQ(u_p->get_type(), messages::message::message_type::trading_status);
+        static_assert(std::is_same<decltype(u_p), std::unique_ptr<messages::message>>::value,
+                      "expecting a unique pointer");
+        EXPECT_NO_THROW(dynamic_cast<messages::trading_status&>(*u_p));
+        EXPECT_NE(nullptr, dynamic_cast<messages::trading_status*>(u_p.get()));
+    }
+
     TEST_F(pitch_test, timestamp_parsed_add)
     {
         std::string line("29000020AA000ABDDCF0XS000300AMD   0000213700Y");

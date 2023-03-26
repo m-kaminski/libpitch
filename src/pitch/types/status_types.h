@@ -1,5 +1,5 @@
-#ifndef _LIBPITCH_TYPES_SIDE_H
-#define _LIBPITCH_TYPES_SIDE_H
+#ifndef _LIBPITCH_TYPES_STATUS_TYPES_H
+#define _LIBPITCH_TYPES_STATUS_TYPES_H
 #include <cstdint>
 #include <stdexcept>
 namespace pitch::types

@@ -10,7 +10,7 @@ namespace pitch::messages
     /**
      * Class representing trade break message
      * 
-     *   ---------------- TRADE BREAK: Standard (short) format ----------------
+     *   ----------------------------- TRADE BREAK -----------------------------
      *   FIELD           OFFSET    LENGTH    DATA TYPE (cboe)   DATA TYPE (C++)
      *   timestamp       0         8         decimal            uint64_t
      *   type            8         1         alpha ("B")        message_type

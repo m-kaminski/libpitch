@@ -11,7 +11,7 @@ namespace pitch::messages
     /**
      * Class representing Symbol Clear message
      *
-     *   --------------- SYMBOL CLEAR: Standard (short) format ---------------
+     *   ---------------------------- SYMBOL CLEAR ----------------------------
      *   FIELD           OFFSET    LENGTH    DATA TYPE (cboe)   DATA TYPE (C++)
      *   timestamp       0         8         decimal            uint64_t
      *   type            8         1         alpha ("s")        message_type

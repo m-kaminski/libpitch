@@ -10,7 +10,7 @@ namespace pitch::messages
     /**
      * Class representing Order Executed message
      * 
-     *   --------------- ORDER EXECUTED: Standard (short) format ---------------
+     *   --------------------------- ORDER EXECUTED ---------------------------
      *   FIELD           OFFSET    LENGTH    DATA TYPE (cboe)   DATA TYPE (C++)
      *   timestamp       0         8         decimal            uint64_t
      *   type            8         1         alpha ("E")        message_type
