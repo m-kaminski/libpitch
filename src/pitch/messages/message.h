@@ -70,5 +70,6 @@ namespace pitch::messages
 #include "trade.h"
 #include "trade_break.h"
 #include "trading_status.h"
+#include "auction_update.h"
 
 #endif
