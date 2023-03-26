@@ -56,7 +56,7 @@ namespace pitch::types
         }
         catch (const std::invalid_argument &e)
         {
-            EXPECT_STREQ("Valid side status is 'A'/'H'/'Q'/'S'/'T'", e.what());
+            EXPECT_STREQ("Valid halt status is 'A'/'H'/'Q'/'S'/'T'", e.what());
         }
     }
 

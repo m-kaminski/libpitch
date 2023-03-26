@@ -45,7 +45,7 @@ namespace pitch::types
         else if (*begin == 'T')
             return halt_status_type::trading;
         else
-            throw std::invalid_argument("Valid side status is 'A'/'H'/'Q'/'S'/'T'");
+            throw std::invalid_argument("Valid halt status is 'A'/'H'/'Q'/'S'/'T'");
     };
 
     /**

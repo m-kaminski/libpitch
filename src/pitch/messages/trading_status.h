@@ -28,7 +28,7 @@ namespace pitch::messages
      *
      * Source specification:
      * https://cdn.cboe.com/resources/membership/Cboe_US_Equities_TCP_PITCH_Specification.pdf
-     * As of: March 25, 2022 (page 6)
+     * As of: March 25, 2022 (page 13)
      */
     class trading_status : public message
     {
