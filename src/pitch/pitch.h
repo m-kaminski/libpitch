@@ -11,8 +11,7 @@ namespace pitch
     /*
      * @param T1 output type to be initialized with raw pointer to pitch::messages::message*,
      * recommended choice is either std::unique_ptr<message> or std::shared_ptr<message>, but other
-     * choices are available up to user. Using raw pointer is discouraged, as it can break
-     * exception safety
+     * choices are available up to user. Using raw pointer is discouraged, but possible as well.
      */
     template <typename T1 = std::unique_ptr<messages::message>>
     class decoder

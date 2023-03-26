@@ -32,6 +32,14 @@ In addition there are following classes to represent distinct types of messages 
 
 Every single one of these messages has getter methods corresponding to fields in PITCH message stream
 
+## design
+
+Library is implemented using C++ templates, in such a manner that messages are returned using preferred
+smart pointer type of the user, or raw C-style pointer, however user prefers.
+
+Each input line is supplied as pair of iterators, iterator type is templatized, so even raw C-style pointers
+to a buffer can be used if your application performs I/O operations using low level C-style APIs
+
 ## format
 
 TCP depth of book (PITCH) stream is stream of text messages representing market event, including addition
