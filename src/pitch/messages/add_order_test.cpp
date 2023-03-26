@@ -24,9 +24,9 @@ namespace pitch::messages
         add_order * a = dynamic_cast<add_order*>(p.get());
         EXPECT_EQ(a->get_timestamp(), 29000020);
         EXPECT_EQ(a->get_type(), message::add_order);
+        EXPECT_EQ(a->get_order_id(), 1316217846817392657LL);
         EXPECT_EQ(a->get_side(), types::side_type::sell);
         EXPECT_EQ(a->get_shares(), 300);
-        EXPECT_EQ(a->get_order_id(), 1316217846817392657LL);
         EXPECT_EQ(a->get_symbol(), "AMD");
         EXPECT_EQ(a->get_price(), 213700);
     }
@@ -73,9 +73,9 @@ namespace pitch::messages
         add_order * a = dynamic_cast<add_order*>(p.get());
         EXPECT_EQ(a->get_timestamp(), 29000020);
         EXPECT_EQ(a->get_type(), message::add_order);
+        EXPECT_EQ(a->get_order_id(), 1316217846817392657LL);
         EXPECT_EQ(a->get_side(), types::side_type::sell);
         EXPECT_EQ(a->get_shares(), 300);
-        EXPECT_EQ(a->get_order_id(), 1316217846817392657LL);
         EXPECT_EQ(a->get_symbol(), "AMD");
         EXPECT_EQ(a->get_price(), 213700);
     }    

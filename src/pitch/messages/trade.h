@@ -119,7 +119,7 @@ namespace pitch::messages
         {
             if (end - begin != length_s)
                 throw std::invalid_argument("expected length of " + std::to_string(length_s)
-                + " for short format add order message");
+                + " for short format trade message");
 
             uint64_t order_id = pitch::types::get_base36(_OFFSET_PAIR(order_id_offset, order_id_length));
             types::side_type side = pitch::types::get_side(begin+side_offset);
@@ -136,7 +136,7 @@ namespace pitch::messages
         {
             if (end - begin != length_l)
                 throw std::invalid_argument("expected length of " + std::to_string(length_l)
-                + " for long format add order message");
+                + " for long format trade message");
 
             uint64_t order_id = pitch::types::get_base36(_OFFSET_PAIR(order_id_offset, order_id_length));
             types::side_type side = pitch::types::get_side(begin+side_offset);

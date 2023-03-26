@@ -13,8 +13,12 @@ target_compile_options(order_executed_test PRIVATE -g -O0 --coverage -fprofile-a
 target_link_libraries(order_executed_test GTest::gtest_main gcov)
 gtest_discover_tests(order_executed_test)
 
-
 add_executable(order_cancel_test order_cancel_test.cpp)
 target_compile_options(order_cancel_test PRIVATE -g -O0 --coverage -fprofile-arcs -ftest-coverage)
 target_link_libraries(order_cancel_test GTest::gtest_main gcov)
 gtest_discover_tests(order_cancel_test)
+
+add_executable(trade_test trade_test.cpp)
+target_compile_options(trade_test PRIVATE -g -O0 --coverage -fprofile-arcs -ftest-coverage)
+target_link_libraries(trade_test GTest::gtest_main gcov)
+gtest_discover_tests(trade_test)
