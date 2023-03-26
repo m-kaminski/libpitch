@@ -46,7 +46,9 @@ namespace pitch::messages
             /// as these are compatible
             auction_update = 8,
             /// auction summary, pages 15-16
-            auction_summary = 9
+            auction_summary = 9,
+            /// retail price improvement
+            retail_price_improvement = 10
         };
 
         /**

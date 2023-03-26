@@ -28,6 +28,7 @@ In addition there are following classes to represent distinct types of messages 
 * ```pitch::messages::trading_status```
 * ```pitch::messages::auction_update```
 * ```pitch::messages::auction_summary```
+* ```pitch::messages::retail_price_improvement```
 
 Every single one of these messages has getter methods corresponding to fields in PITCH message stream
 
