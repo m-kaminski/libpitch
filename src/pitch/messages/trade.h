@@ -12,7 +12,8 @@ namespace pitch::messages
 {
 
     /**
-     * Class representing add order message
+     * Class representing trade message (message representing an executed trade)
+     * that is not related to order previously recorded through add_order)
      *  
      *   -------------------- TRADE: Standard (short) format ------------------
      *   FIELD          OFFSET    LENGTH    DATA TYPE (cboe)    DATA TYPE (C++)

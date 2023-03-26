@@ -8,11 +8,9 @@
 
 namespace pitch::messages
 {
-
     class trade_test : public ::testing::Test
     {
     };
-
 
     TEST_F(trade_test, test_build_short)
     {
@@ -21,7 +19,7 @@ namespace pitch::messages
 
         pitch::decoder d;
         auto p = d.decode_message(line.begin(), line.end());
-        trade * a = dynamic_cast<trade*>(p.get());
+        trade *a = dynamic_cast<trade *>(p.get());
         EXPECT_EQ(a->get_timestamp(), 28880387LL);
         EXPECT_EQ(a->get_type(), message::trade);
         EXPECT_EQ(a->get_order_id(), 599834127447466523LL);
@@ -31,7 +29,7 @@ namespace pitch::messages
         EXPECT_EQ(a->get_price(), 1074900);
         EXPECT_EQ(a->get_execution_id(), 28211199077439);
     }
-    
+
     TEST_F(trade_test, test_build_short_error_handling_long_input)
     {
         std::string line("28880387P4K27GA0000EZB000100DRYS  0001074900000A001NJEPR ");
@@ -47,7 +45,7 @@ namespace pitch::messages
             EXPECT_STREQ("expected length of 56 for short format trade message", e.what());
         }
     }
-    
+
     TEST_F(trade_test, test_build_short_error_handling_short_input)
     {
         std::string line("28880387P4K27GA0000EZB000100DRYS  0001074900000A001NJEP");
@@ -71,7 +69,7 @@ namespace pitch::messages
 
         pitch::decoder d;
         auto p = d.decode_message(line.begin(), line.end());
-        trade * a = dynamic_cast<trade*>(p.get());
+        trade *a = dynamic_cast<trade *>(p.get());
         EXPECT_EQ(a->get_timestamp(), 28880387LL);
         EXPECT_EQ(a->get_type(), message::trade);
         EXPECT_EQ(a->get_order_id(), 599834127447466523LL);
@@ -80,7 +78,7 @@ namespace pitch::messages
         EXPECT_EQ(a->get_symbol(), "DRYS");
         EXPECT_EQ(a->get_price(), 1074900);
         EXPECT_EQ(a->get_execution_id(), 28211199077439);
-    }    
+    }
 
     TEST_F(trade_test, test_build_long_error_handling_long_input)
     {
@@ -97,7 +95,7 @@ namespace pitch::messages
             EXPECT_STREQ("expected length of 58 for long format trade message", e.what());
         }
     }
-    
+
     TEST_F(trade_test, test_build_long_error_handling_short_input)
     {
         std::string line("28880387r4K27GA0000EZB000100DRYS    0001074900000A001NJEP");
@@ -112,7 +110,8 @@ namespace pitch::messages
         {
             EXPECT_STREQ("expected length of 58 for long format trade message", e.what());
         }
-    }}
+    }
+}
 
 int main(int argc, char **argv)
 {
