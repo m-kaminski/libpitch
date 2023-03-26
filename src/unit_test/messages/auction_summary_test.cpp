@@ -3,8 +3,8 @@
 #include <string>
 #include <memory>
 
-#include "message.h"
-#include "../pitch.h"
+#include "messages/message.h"
+#include "pitch.h"
 
 namespace pitch::messages
 {

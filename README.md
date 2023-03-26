@@ -7,7 +7,7 @@ https://cdn.cboe.com/resources/membership/Cboe_US_Equities_TCP_PITCH_Specificati
 
 # structure
 
-```src/pitch/pitch.h``` includes main header for the library. Library is of header-only type,
+```src/include/pitch/pitch.h``` includes main header for the library. Library is of header-only type,
 so nothing has to be compiled before including it in our program
 
 at core of library there are two classes:
@@ -90,4 +90,25 @@ message_type: order_execute
 order_id: 1316217846817392657 (A000ABDDCF0X in base 36) - same as above
 shares: 20 (so order above still has 280 shares outstanding)
 execution_id: 2765178694981 (ZAB00091 in base 36)
+```
+
+# Developing
+
+Following packages are essential to run and test libpitch in CentOS operating
+system (in other operating systems similar libraries may be needed)
+```
+yum install g++ make cmake gtest gtest-devel gcov
+```
+
+Following include path configuration is not needed for build, but may
+make it easier to edit if your source editor doesn't get it from
+parsing CMakeLists
+```
+${workspaceFolder}/src/include
+${workspaceFolder}/src/include/pitch
+```
+
+Unit tests are located in
+```
+src/unit_test/{path corresponding to src/include/libpitch/}
 ```

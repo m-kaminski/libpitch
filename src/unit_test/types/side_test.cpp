@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 
-#include "side.h"
+#include "types/side.h"
 
 namespace pitch::types
 {

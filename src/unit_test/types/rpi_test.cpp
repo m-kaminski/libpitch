@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 
-#include "rpi.h"
+#include "types/rpi.h"
 
 namespace pitch::types
 {

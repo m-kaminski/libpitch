@@ -3,7 +3,7 @@
 #include <string>
 #include <cassert>
 
-#include "base.h"
+#include "types/base.h"
 
 namespace pitch::types
 {

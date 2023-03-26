@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 
-#include "status_types.h"
+#include "types/status_types.h"
 
 namespace pitch::types
 {

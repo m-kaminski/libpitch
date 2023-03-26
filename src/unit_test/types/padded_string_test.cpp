@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 
-#include "padded_string.h"
+#include "types/padded_string.h"
 
 namespace pitch::types
 {

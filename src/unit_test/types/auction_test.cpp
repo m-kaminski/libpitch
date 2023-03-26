@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 
-#include "auction.h"
+#include "types/auction.h"
 
 namespace pitch::types
 {
